@@ -26,3 +26,8 @@ AI-Powered Fraud Detection System for First-Time Digital Users.
 ```bash
 pip install -r requirements.txt
 python app.py
+```
+
+## Goal
+
+To help first-time digital users avoid scams and phishing attacks using AI-driven fraud detection.
