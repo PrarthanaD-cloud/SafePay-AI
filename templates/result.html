@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Analysis Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Transaction Analysis</h1>
+
+        <!-- STATUS BOX -->
+
+        {% if status == "HIGH RISK" %}
+
+            <div class="danger">
+                HIGH RISK
+            </div>
+
+        {% elif status == "SUSPICIOUS" %}
+
+            <div class="warning">
+                SUSPICIOUS
+            </div>
+
+        {% else %}
+
+            <div class="safe">
+                SAFE
+            </div>
+
+        {% endif %}
+
+        <!-- SCORE -->
+
+        <h2>
+            Risk Score: {{ score }}%
+        </h2>
+
+        <!-- AI RESULT -->
+
+        <p>
+            <strong>AI Prediction:</strong>
+
+            {% if prediction == 1 %}
+                Scam Detected
+            {% else %}
+                Safe Message
+            {% endif %}
+        </p>
+
+        <!-- MULTILINGUAL WARNING -->
+
+        {% if status == "HIGH RISK" %}
+
+            <div class="warning-text">
+
+                <p>
+                    ⚠ Warning! This transaction may be fraudulent.
+                </p>
+
+                <p>
+                    ⚠ ಈ ಪಾವತಿ ಅಪಾಯಕಾರಿ ಇರಬಹುದು.
+                </p>
+
+                <p>
+                    ⚠ यह भुगतान जोखिम भरा हो सकता है।
+                </p>
+
+            </div>
+
+        {% endif %}
+
+        <!-- PROGRESS BAR -->
+
+        <div class="progress-bar">
+
+            <div class="progress"
+                 data-score="{{ score }}">
+            </div>
+
+        </div>
+
+        <br>
+
+        <!-- DETAILS -->
+
+        <p>
+            <strong>UPI ID:</strong>
+            {{ upi }}
+        </p>
+
+        <p>
+            <strong>Amount:</strong>
+            ₹{{ amount }}
+        </p>
+
+        <p>
+            <strong>Message:</strong>
+            {{ message }}
+        </p>
+
+        <a href="/">
+
+            <button>
+                Analyze Another Transaction
+            </button>
+
+        </a>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // Progress Bar
+
+        let progressBar =
+            document.querySelector(".progress");
+
+        let score =
+            progressBar.getAttribute("data-score");
+
+        progressBar.style.width = score + "%";
+
+
+        // Voice Alert
+
+        window.onload = function () {
+
+            let status = "{{ status }}";
+
+            let text = "";
+
+            if (status === "HIGH RISK") {
+
+                text =
+                    "Warning! This transaction may be fraudulent.";
+
+            }
+
+            else if (status === "SUSPICIOUS") {
+
+                text =
+                    "Caution! This transaction looks suspicious.";
+
+            }
+
+            if (text !== "") {
+
+                let speech =
+                    new SpeechSynthesisUtterance(text);
+
+                speech.lang = "en-US";
+
+                speech.volume = 1;
+
+                speech.rate = 1;
+
+                speech.pitch = 1;
+
+                window.speechSynthesis.speak(speech);
+            }
+
+        };
+
+    </script>
+
+</body>
+
+</html>

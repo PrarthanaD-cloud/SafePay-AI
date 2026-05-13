@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>SafePay AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>SafePay AI</h1>
+
+        <p>AI Fraud Detection System</p>
+
+        <!-- FORM START -->
+        <form action="/analyze" method="POST">
+
+            <label>UPI ID</label>
+            <input type="text" name="upi" placeholder="example@upi" required>
+
+            <label>Amount</label>
+            <input type="number" name="amount" placeholder="Enter amount" required>
+
+            <label>Message / URL</label>
+            <textarea name="message" placeholder="Paste SMS or link here" required></textarea>
+
+            <button type="submit">Analyze Transaction</button>
+
+        </form>
+        <!-- FORM END -->
+
+    </div>
+
+</body>
+
+</html>
