@@ -40,7 +40,23 @@ def analyze():
     for word in suspicious_words:
         if word in message:
             risk_score += 20
+    
+    # Financial transaction behavior analysis
 
+    financial_words = [
+         "payment",
+         "transfer",
+         "balance",
+         "refund",
+         "pending",
+         "account"
+    ]
+
+    for word in financial_words:
+
+        if word in message and amount > 30000:
+            risk_score += 25
+            
     # Check suspicious URLs
     suspicious_urls = [
         "bit.ly",
